@@ -1,0 +1,315 @@
+﻿<Window x:Class="Project2_QuanLyDuAnGitHub.Main2"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Project2_QuanLyDuAnGitHub"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="Main2" Height="600" Width="1080" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
+    <Window.Resources>
+        <Storyboard x:Key="MenuOpen">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
+                <EasingDoubleKeyFrame KeyTime="0" Value="60"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="200"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="MenuClose">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
+                <EasingDoubleKeyFrame KeyTime="0" Value="200"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="60"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Window.Resources>
+
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ButtonOpenMenu">
+            <BeginStoryboard Storyboard="{StaticResource MenuOpen}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ButtonCloseMenu">
+            <BeginStoryboard Storyboard="{StaticResource MenuClose}"/>
+        </EventTrigger>
+    </Window.Triggers>
+
+    <Grid Background="LightGray">
+        <Grid Height="60" VerticalAlignment="Top" Background="#FF673AB7" >
+            <TextBlock Text="Git Hub Mini" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" FontWeight="SemiBold" Margin="70 0 0 0" />
+            <StackPanel VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Right">
+                <TextBlock Text="{Binding Path=login}" VerticalAlignment="Center" FontSize="18"/>
+                <materialDesign:PopupBox Margin="10" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False">
+                    <StackPanel Width="150">
+                        <Button Content="Home" Click="Button_Click_Home"/>
+                        <Button Content="Settings"/>
+                        <Button Content="Help"/>
+                        <Separator/>
+                        <Button x:Name="ButtonPopUp" Content="Exit" Click="ButtonPopUp_Click"/>
+                    </StackPanel>
+                </materialDesign:PopupBox>
+
+            </StackPanel>
+        </Grid>
+        <Grid Height="10" VerticalAlignment="Bottom" Background="#FF673AB7"/>
+
+        <Grid x:Name="Content" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="540" Width="1020" Visibility="Visible">
+            <Border Background="AliceBlue" Margin="20" CornerRadius="25">
+                <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Width="251" Height="480">
+                    <Border Width="200" Height="200" Margin="20 20 0 10" BorderBrush="Gray" HorizontalAlignment="Left" BorderThickness="2" CornerRadius="15">
+                        <Border.Background>
+                            <ImageBrush ImageSource="{Binding Path=avatar}"/>
+                        </Border.Background>
+                    </Border>
+
+                    <StackPanel Orientation="Horizontal" Margin="20 0">
+                        <StackPanel Margin="5">
+                            <TextBlock Text="Followers" FontSize="20" FontWeight="Bold" Foreground="Green"/>
+                            <TextBlock Text="{Binding Path=followers}" FontSize="20" Foreground="Gray" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                        <StackPanel Margin="20 5 0 0">
+                            <TextBlock Text="Following" FontSize="20" FontWeight="Bold" Foreground="Green"/>
+                            <TextBlock Text="{Binding Path=following}" FontSize="20" Foreground="Gray" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </StackPanel>
+
+
+                    <StackPanel Orientation="Horizontal" Margin="20 0">
+                        <StackPanel Margin="5">
+                            <TextBlock Text="Repositories" FontSize="20" FontWeight="Bold" Foreground="DarkRed"/>
+                            <TextBlock Text="{Binding Path=public_repos}" FontSize="20" Foreground="Gray" HorizontalAlignment="Center" Margin="-23 0 0 0"/>
+                        </StackPanel>
+                        <StackPanel Margin="10 5 0 0">
+                            <TextBlock Text="Projects" FontSize="20" FontWeight="Bold" Foreground="DarkRed"/>
+                            <TextBlock Text="{Binding Path=public_gists}" FontSize="20" Foreground="Gray" HorizontalAlignment="Center" Margin="-14 0 0 0"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <ListViewItem  Margin="34 0 0 0" Height="60" >
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Star" Width="25" Height="25" VerticalAlignment="Center" Margin="5"/>
+                            <TextBlock Text="{Binding Path=star}" FontSize="20" HorizontalAlignment="Center" Margin="10 10" Foreground="Gray" />
+
+                        </StackPanel>
+                    </ListViewItem>
+                    <Grid Margin="-5 0 -5 -5">
+                        <TextBlock Text="Created at: " Margin="30 0 0 0" FontSize="17"/>
+                        <TextBlock Text="{Binding Path=created_at}" Margin="125 5 0 0" FontSize="12" Foreground="Gray"/>
+                    </Grid>
+                    <Grid Margin="-5 0 -5 -5">
+                        <TextBlock Text="Updated at: " Margin="30 0 0 0" FontSize="17"/>
+                        <TextBlock Text="{Binding Path=updated_at}" Margin="125 5 0 0" FontSize="12" Foreground="Gray"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
+            <StackPanel HorizontalAlignment="Left" Width="535" Height="72" Margin="250,50,0,0" VerticalAlignment="Top">
+                <TextBlock Margin="0" VerticalAlignment="Bottom" FontSize="50" Text="{Binding Path=name}" Width="508"/>
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Right" Width="681" Height="372" Margin="0,122,50,0" VerticalAlignment="Top">
+                <StackPanel Margin="5">
+                    <TextBlock Text="Bio" FontSize="20" FontWeight="Bold" Foreground="#FF372061"/>
+                    <TextBlock Text="{Binding Path=bio}" FontSize="20" Foreground="Gray" HorizontalAlignment="Left"/>
+                </StackPanel>
+                <StackPanel Margin="5">
+                    <TextBlock Text="Company" FontSize="20" FontWeight="Bold" Foreground="#FF372061"/>
+                    <TextBlock Text="{Binding Path=company}" FontSize="20" Foreground="Gray" HorizontalAlignment="Left"/>
+                </StackPanel>
+                <StackPanel Margin="5">
+                    <TextBlock Text="Location" FontSize="20" FontWeight="Bold" Foreground="#FF372061"/>
+                    <TextBlock Text="{Binding Path=location}" FontSize="20" Foreground="Gray" HorizontalAlignment="Left"/>
+                </StackPanel>
+                <StackPanel Margin="5">
+                    <TextBlock Text="Website" FontSize="20" FontWeight="Bold" Foreground="#FF372061"/>
+                    <TextBlock Text="{Binding Path=blog}" FontSize="20" Foreground="Gray" HorizontalAlignment="Left"/>
+                </StackPanel>
+                <StackPanel Margin="5">
+                    <TextBlock Text="Twitter" FontSize="20" FontWeight="Bold" Foreground="#FF372061"/>
+                    <TextBlock Text="{Binding Path=twitter_username}" FontSize="20" Foreground="Gray" HorizontalAlignment="Left"/>
+                </StackPanel>
+                <StackPanel Margin="5">
+                    <TextBlock Text="Email" FontSize="20" FontWeight="Bold" Foreground="#FF372061"/>
+                    <TextBlock Text="{Binding Path=email}" FontSize="20" Foreground="Gray" HorizontalAlignment="Left"/>
+                </StackPanel>
+            </StackPanel>
+
+        </Grid>
+        <Grid x:Name="Repository" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="540" Width="1020" Visibility="Collapsed">
+            <Border Background="AliceBlue" Margin="20" CornerRadius="25">
+                <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Width="251" Height="480">
+                    <Border Background="#FFE7C8FF" CornerRadius="30" Height="190" Margin="15">
+                        <StackPanel Margin="25">
+                            <TextBox x:Name="txtRepos" Margin="15" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Repository cần tìm" Text="{Binding ReposName }"/>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Button x:Name="btnTimRepos" Margin="15 10" Content="TÌM" Click="btnTimRepos_Click"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                    <ListViewItem  Margin="8 0 0 0" Height="60" >
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Code" Width="25" Height="25" VerticalAlignment="Center" Margin="5"/>
+                            <TextBlock Text="{Binding Path=language_repos}" FontSize="20" HorizontalAlignment="Center" Margin="10 10" Foreground="DarkGreen" />
+
+                        </StackPanel>
+                    </ListViewItem>
+                    <Button x:Name="watch_code" Content="Watch Code" Width="160" Margin="0,0,0,5" Height="35" Click="watch_code_Click"></Button>
+                    <Button x:Name="show_commits" Content="Show Commits" Width="160" Margin="0,0,0,5" Height="35" Click="show_commits_Click"></Button>
+                    <Button x:Name="clone_zip" Content="Clone ZIP" Width="160" Margin="0,0,0,5" Height="35" Click="clone_zip_Click"></Button>
+                    <Grid Margin="-5 5 -5 -5">
+                        <TextBlock Text="Created at: " Margin="30 0 0 0" FontSize="17"/>
+                        <TextBlock Text="{Binding Path=created_at_repos}" Margin="125 5 0 0" FontSize="12" Foreground="Gray"/>
+                    </Grid>
+                    <Grid Margin="-5 5 -5 -5">
+                        <TextBlock Text="Updated at: " Margin="30 0 0 0" FontSize="17"/>
+                        <TextBlock Text="{Binding Path=updated_at_repos}" Margin="125 5 0 0" FontSize="12" Foreground="Gray"/>
+                    </Grid>
+                    <Grid Margin="-5 5 -5 -5">
+                        <TextBlock Text="Pushed at: " Margin="30 0 0 0" FontSize="17"/>
+                        <TextBlock Text="{Binding Path=pushed_at_repos}" Margin="125 5 0 0" FontSize="12" Foreground="Gray"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
+            <StackPanel HorizontalAlignment="Left" Width="662" Height="72" Margin="292,50,0,0" VerticalAlignment="Top">
+                <TextBlock Margin="40,0,0,0" FontSize="40" Text="{Binding Path=name_repos}" Width="622" FontWeight="Bold"/>
+            </StackPanel>
+            <StackPanel x:Name="ReposInfo" HorizontalAlignment="Right" Width="694" Height="372" Margin="0,122,34,0" VerticalAlignment="Top">
+                <StackPanel Margin="5" Width="215" HorizontalAlignment="Left">
+                    <TextBlock Text="Size" FontSize="20" FontWeight="Bold" Foreground="#FF372061" Width="105" HorizontalAlignment="Left" />
+                    <TextBlock Text="{Binding Path=size_repos}" FontSize="20" Foreground="Gray" HorizontalAlignment="Left" Width="106"/>
+                </StackPanel>
+                <StackPanel Margin="5" Width="215" HorizontalAlignment="Left">
+                    <TextBlock Text="Has Wiki" FontSize="20" FontWeight="Bold" Foreground="#FF372061"/>
+                    <TextBlock Text="{Binding Path=has_wiki_repos}" FontSize="20" Foreground="Gray" HorizontalAlignment="Left"/>
+                </StackPanel>
+                <StackPanel Margin="5" Width="215" HorizontalAlignment="Left">
+                    <TextBlock Text="Has Pages" FontSize="20" FontWeight="Bold" Foreground="#FF372061"/>
+                    <TextBlock Text="{Binding Path=has_pages_repos}" FontSize="20" Foreground="Gray" HorizontalAlignment="Left"/>
+                </StackPanel>
+                <StackPanel Margin="5" Width="215" HorizontalAlignment="Left">
+                    <TextBlock Text="Has Issues" FontSize="20" FontWeight="Bold" Foreground="#FF372061"/>
+                    <TextBlock Text="{Binding Path=has_issues_repos}" FontSize="20" Foreground="Gray" HorizontalAlignment="Left"/>
+                </StackPanel>
+                <StackPanel Margin="5" Width="215" HorizontalAlignment="Left">
+                    <TextBlock Text="Has Projects" FontSize="20" FontWeight="Bold" Foreground="#FF372061"/>
+                    <TextBlock Text="{Binding Path=has_projects_repos}" FontSize="20" Foreground="Gray" HorizontalAlignment="Left"/>
+                </StackPanel>
+                <StackPanel Margin="5" Width="215" HorizontalAlignment="Left">
+                    <TextBlock Text="Has Download" FontSize="20" FontWeight="Bold" Foreground="#FF372061"/>
+                    <TextBlock Text="{Binding Path=has_download_repos}" FontSize="20" Foreground="Gray" HorizontalAlignment="Left"/>
+                </StackPanel>
+                <StackPanel Margin="0,-373,0,0" Width="215" HorizontalAlignment="Center" >
+                    <TextBlock Text="Stargazers" FontSize="20" FontWeight="Bold" Foreground="#FF372061" Width="211" HorizontalAlignment="Left" />
+                    <TextBlock Text="{Binding Path=stargazers_count_repos}" FontSize="20" Foreground="Gray" HorizontalAlignment="Left" Width="204"/>
+                </StackPanel>
+                <StackPanel Margin="0,-312,0,0" Width="215" HorizontalAlignment="Center">
+                    <TextBlock Text="Watchers" FontSize="20" FontWeight="Bold" Foreground="#FF372061"/>
+                    <TextBlock Text="{Binding Path=watchers_count_repos}" FontSize="20" Foreground="Gray" HorizontalAlignment="Left"/>
+                </StackPanel>
+                <StackPanel Margin="0,-248,0,0" Width="215" HorizontalAlignment="Center">
+                    <TextBlock Text="Forks" FontSize="20" FontWeight="Bold" Foreground="#FF372061"/>
+                    <TextBlock Text="{Binding Path=forks_count_repos}" FontSize="20" Foreground="Gray" HorizontalAlignment="Left"/>
+                </StackPanel>
+                <StackPanel Margin="0,-185,0,0" Width="215" HorizontalAlignment="Center">
+                    <TextBlock Text="Open Issues" FontSize="20" FontWeight="Bold" Foreground="#FF372061"/>
+                    <TextBlock Text="{Binding Path=open_issues_count_repos}" FontSize="20" Foreground="Gray" HorizontalAlignment="Left"/>
+                </StackPanel>
+                <StackPanel Margin="0,-120,0,0" Width="215" HorizontalAlignment="Center">
+                    <TextBlock Text="Network" FontSize="20" FontWeight="Bold" Foreground="#FF372061"/>
+                    <TextBlock Text="{Binding Path=network_count_repos}" FontSize="20" Foreground="Gray" HorizontalAlignment="Left"/>
+                </StackPanel>
+                <StackPanel Margin="0,-57,0,0" Width="215" HorizontalAlignment="Center">
+                    <TextBlock Text="Subscribers" FontSize="20" FontWeight="Bold" Foreground="#FF372061"/>
+                    <TextBlock Text="{Binding Path=subscribers_count_repos}" FontSize="20" Foreground="Gray" HorizontalAlignment="Left"/>
+                </StackPanel>
+                <StackPanel Margin="0,-373,0,0" Width="215" HorizontalAlignment="Right" >
+                    <TextBlock Text="Default Branch" FontSize="20" FontWeight="Bold" Foreground="#FF372061" Width="207" HorizontalAlignment="Left" />
+                    <TextBlock Text="{Binding Path=default_branch_repos}" FontSize="20" Foreground="Gray" HorizontalAlignment="Left" Width="138"/>
+                </StackPanel>
+                <StackPanel Margin="0,-312,0,0" Width="215" HorizontalAlignment="Right">
+                    <TextBlock Text="Temp Clone Token" FontSize="20" FontWeight="Bold" Foreground="#FF372061"/>
+                    <TextBlock Text="{Binding Path=temp_clone_token_repos}" FontSize="20" Foreground="Gray" HorizontalAlignment="Left"/>
+                </StackPanel>
+                <StackPanel Margin="0,-248,0,0" Width="215" HorizontalAlignment="Right">
+                    <TextBlock Text="Mirror" FontSize="20" FontWeight="Bold" Foreground="#FF372061"/>
+                    <TextBlock Text="{Binding Path=mirror_url_repos}" FontSize="20" Foreground="Gray" HorizontalAlignment="Left"/>
+                </StackPanel>
+                <StackPanel Margin="0,-185,0,0" Width="215" HorizontalAlignment="Right">
+                    <TextBlock Text="Archived" FontSize="20" FontWeight="Bold" Foreground="#FF372061"/>
+                    <TextBlock Text="{Binding Path=archived_repos}" FontSize="20" Foreground="Gray" HorizontalAlignment="Left"/>
+                </StackPanel>
+                <StackPanel Margin="0,-120,0,0" Width="215" HorizontalAlignment="Right">
+                    <TextBlock Text="Disabled" FontSize="20" FontWeight="Bold" Foreground="#FF372061"/>
+                    <TextBlock Text="{Binding Path=disabled_repos}" FontSize="20" Foreground="Gray" HorizontalAlignment="Left"/>
+                </StackPanel>
+                <StackPanel Margin="0,-57,0,0" Width="215" HorizontalAlignment="Right">
+                    <TextBlock Text="License" FontSize="20" FontWeight="Bold" Foreground="#FF372061"/>
+                    <TextBlock Text="{Binding Path=license_repos}" FontSize="20" Foreground="Gray" HorizontalAlignment="Left"/>
+                </StackPanel>
+
+
+            </StackPanel>
+        </Grid>
+        <Grid x:Name="GitURL" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="540" Width="1020" Visibility="Collapsed">
+            <Border Background="AliceBlue" Margin="20" CornerRadius="25">
+                <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Width="251" Height="480">
+
+                    <StackPanel Orientation="Horizontal" Margin="20 0">
+                        <StackPanel Margin="5"/>
+                        <StackPanel Margin="20 5 0 0"/>
+                    </StackPanel>
+
+
+                    <StackPanel Orientation="Horizontal" Margin="20 0">
+                        <StackPanel Margin="5"/>
+                    </StackPanel>
+                    <Grid Margin="-5 0 -5 -5"/>
+                    <Grid Margin="-5 0 -5 -5"/>
+                </StackPanel>
+            </Border>
+            <StackPanel HorizontalAlignment="Center" Width="609" Height="72" Margin="0,50,0,0" VerticalAlignment="Top">
+                <TextBlock Margin="0" VerticalAlignment="Bottom" FontSize="30" Text="{Binding Path=name}" HorizontalAlignment="Center"/>
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Right" Width="916" Height="372" Margin="0,122,50,0" VerticalAlignment="Top">
+                <TextBlock Text="GitHub URL" FontSize="50" FontWeight="Bold" Foreground="#FF372061" HorizontalAlignment="Center"/>
+                <TextBlock Text="{Binding Path=html_url}" FontSize="25" Foreground="Gray" HorizontalAlignment="Center"></TextBlock>
+                <Button x:Name="OpenGit" Margin="20" Content="OPEN LINK" FontSize="50" FontWeight="Bold" Foreground="#FF372061" Height="138" Width="530" Click="OpenGit_Click"/>
+                <Button x:Name="GhiChu" Margin="20" Content="Note" FontSize="30" FontWeight="Bold" Foreground="#FF372061" Height="55" Width="272" Click="GhiChu_Click"/>
+            </StackPanel>
+        </Grid>
+        <Grid x:Name="GridMenu" Width="50" HorizontalAlignment="Left" Background="#FF372061">
+            <StackPanel>
+                <Grid Height="150" Background="White">
+                    <Button x:Name="ButtonCloseMenu" Width="60" Height="60" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Right" Visibility="Collapsed" Click="ButtonCloseMenu_Click">
+                        <materialDesign:PackIcon Foreground="#FF372061" Kind="ArrowLeft" Width="25" Height="25"/>
+                    </Button>
+                    <Button x:Name="ButtonOpenMenu" Width="60" Height="60" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Right" Click="ButtonOpenMenu_Click">
+                        <materialDesign:PackIcon Foreground="#FF372061" Kind="Menu" Width="25" Height="25"/>
+                    </Button>
+                </Grid>
+                <ListView Foreground="#FF673AB7" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <ListViewItem x:Name="ItemInfo" Height="60" MouseDoubleClick="ListViewItem_MouseDoubleClick">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Account" Width="25" Height="25" VerticalAlignment="Center" Margin="5"/>
+                            <TextBlock Text="Thông tin người dùng" VerticalAlignment="Center" Margin="20 10" />
+
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem x:Name="ItemRepos" Height="60" MouseDoubleClick="ItemRepos_MouseDoubleClick">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Pencil" Width="25" Height="25" VerticalAlignment="Center" Margin="5"/>
+                            <TextBlock Text="Repositories" VerticalAlignment="Center" Margin="20 10"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem x:Name="ItemProject" Height="60" MouseDoubleClick="ItemProject_MouseDoubleClick">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Book" Width="25" Height="25" VerticalAlignment="Center" Margin="5"/>
+                            <TextBlock Text="Projects" VerticalAlignment="Center" Margin="20 10"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem x:Name="ItemGitURL" Height="60" MouseDoubleClick="ItemGitURL_MouseDoubleClick">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Github" Width="25" Height="25" VerticalAlignment="Center" Margin="5"/>
+                            <TextBlock Text="GitHub URL" VerticalAlignment="Center" Margin="20 10"/>
+                        </StackPanel>
+                    </ListViewItem>
+                </ListView>
+            </StackPanel>
+        </Grid>
+
+    </Grid>
+</Window>
